@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-import '../../App.css';
-import BackgroundImage from '../../assets/images/bg.png';
+import "../../App.css";
+import BackgroundImage from "../../assets/images/bg.png";
 
 export default function LandingPage() {
     const navigate = useNavigate();
     useEffect(() => {
-        if (localStorage.getItem('user')) {
-            navigate('/form');
+        if (localStorage.getItem("user")) {
+            navigate("/form");
         }
     });
     return (
@@ -29,10 +29,10 @@ export default function LandingPage() {
 }
 
 const HeaderStyle = {
-    width: '100%',
-    height: '100vh',
-    // background: `url(${BackgroundImage})`,
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
+    width: "100%",
+    height: "100vh",
+    background: `url(${BackgroundImage})`,
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
 };
