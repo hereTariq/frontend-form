@@ -1,50 +1,50 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { PlusCircleIcon } from '@heroicons/react/outline';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { CreateFormAPI, GetUserAPI } from '../../utils/APIRoutes';
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { PlusCircleIcon } from "@heroicons/react/outline";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { CreateFormAPI, GetUserAPI } from "../../utils/APIRoutes";
 
 export default function FormPage({ setFormData }) {
     const navigate = useNavigate();
     const toastOptions = {
-        position: 'bottom-right',
+        position: "bottom-right",
         autoClose: 5000,
         pauseOnHover: true,
-        theme: 'colored',
+        theme: "colored",
         draggable: true,
     };
-    const [title, setTitle] = useState('Untitled Form');
-    const [description, setDescription] = useState('Form Description');
+    const [title, setTitle] = useState("Untitled Form");
+    const [description, setDescription] = useState("Form Description");
     const [formContent, setFormContent] = useState([
         {
             id: 0,
-            name: '0',
-            label: 'Untitled Question',
+            name: "0",
+            label: "Untitled Question",
             required: false,
-            question_type: 'short_answer',
+            question_type: "short_answer",
             list: [],
         },
     ]);
     const [onEdit, setOnEdit] = useState(false);
-    const [textField, setTextField] = useState('');
-    const [editedField, setEditedField] = useState('');
+    const [textField, setTextField] = useState("");
+    const [editedField, setEditedField] = useState("");
 
     // let user;
     useEffect(() => {
-        if (!localStorage.getItem('user')) {
-            navigate('/login');
+        if (!localStorage.getItem("user")) {
+            navigate("/login");
         }
     });
 
     const addQuestion = () => {
         const field = {
             name: `question_${formContent.length}`,
-            label: 'Untitled question',
+            label: "Untitled question",
             required: false,
-            question_type: 'short_answer', // "paragraph", "multichoice",
+            question_type: "short_answer", // "paragraph", "multichoice",
             list: [],
-            value: '',
+            value: "",
         };
         setFormContent([...formContent, field]);
     };
@@ -71,24 +71,24 @@ export default function FormPage({ setFormData }) {
         const formFields = [...formContent];
         const fieldIndex = formFields.findIndex((f) => f.name === fieldName);
         if (fieldIndex > -1) {
-            if (option && option != '') {
+            if (option && option != "") {
                 formFields[fieldIndex].list.push(option);
                 setFormContent(formFields);
-                setTextField('');
+                setTextField("");
             }
         }
     };
     const submitForm = async (e) => {
         e.preventDefault();
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(localStorage.getItem("user"));
         if (!user) {
-            navigate('/login');
+            navigate("/login");
         }
 
         const response = await fetch(CreateFormAPI, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${user.token}`,
             },
             body: JSON.stringify({
@@ -101,10 +101,10 @@ export default function FormPage({ setFormData }) {
         const data = await response.json();
         if (data.status === true) {
             setFormData(data);
-            navigate('/response-form');
+            navigate("/response-form");
             console.log(data.form);
             user.formId = data.form._id;
-            localStorage.setItem('user', JSON.stringify(user));
+            localStorage.setItem("user", JSON.stringify(user));
             toast.success(data.message, toastOptions);
         } else {
             toast.error(data.message, toastOptions);
@@ -145,6 +145,7 @@ export default function FormPage({ setFormData }) {
                                         editedField === field.name ? (
                                             <input
                                                 type="text"
+                                                className="border border-black"
                                                 value={field.label}
                                                 onChange={(e) =>
                                                     editField(
@@ -154,7 +155,7 @@ export default function FormPage({ setFormData }) {
                                                 }
                                                 onBlur={() => {
                                                     setOnEdit(false);
-                                                    setEditedField('');
+                                                    setEditedField("");
                                                 }}
                                             />
                                         ) : (
@@ -191,21 +192,21 @@ export default function FormPage({ setFormData }) {
                                 </div>
 
                                 <div className="my-4 w-full">
-                                    {field.question_type == 'short_answer' && (
+                                    {field.question_type == "short_answer" && (
                                         <input
                                             type="text"
                                             className="px-5 shadow-sm h-10 rounded-md block w-full"
                                             placeholder={field.label}
                                         />
                                     )}
-                                    {field.question_type == 'paragraph' && (
+                                    {field.question_type == "paragraph" && (
                                         <textarea
                                             rows={4}
                                             className="px-5 shadow-sm h-10 rounded-md block w-full"
                                             placeholder={field.label}
                                         />
                                     )}
-                                    {field.question_type == 'multichoice' && (
+                                    {field.question_type == "multichoice" && (
                                         <div className="my-4 flex flex-col space-y-2">
                                             <select className="px-5 shadow-sm h-10 rounded-md block w-full">
                                                 {field.list.map((item) => (
@@ -248,7 +249,7 @@ export default function FormPage({ setFormData }) {
                         </div>
                     );
                 })}
-                <div className=" absolute space-y-4 top-0 -right-28 flex flex-col justify-between h-36 items-center bg-white p-2 rounded-md shadow-md">
+                <div className=" absolute space-y-1 top-0 -right-16 flex flex-col justify-between items-center bg-white p-2 rounded-md shadow-md">
                     <button onClick={() => addQuestion()}>
                         <PlusCircleIcon className="w-8 h-8 text-gray-400 hover:text-indigo-500" />
                     </button>
@@ -258,15 +259,6 @@ export default function FormPage({ setFormData }) {
                     <button onClick={() => addQuestion()}>
                         <PlusCircleIcon className="w-8 h-8 text-gray-400 hover:text-indigo-500" />
                     </button> */}
-                    <button
-                        className="px-3 py-2 bg-red-700 hover:bg-red-800 rounded-md text-white"
-                        onClick={() => {
-                            localStorage.removeItem('user');
-                            navigate('/login');
-                        }}
-                    >
-                        LOGOUT
-                    </button>
                 </div>
                 <button
                     className="bg-indigo-600 px-4 py-2 hover:bg-indigo-700 rounded-md text-white"
@@ -276,7 +268,15 @@ export default function FormPage({ setFormData }) {
                     Submit
                 </button>
             </div>
-
+            <button
+                className="px-3 py-2 bg-red-700 hover:bg-red-800 rounded-md text-white"
+                onClick={() => {
+                    localStorage.removeItem("user");
+                    navigate("/login");
+                }}
+            >
+                LOGOUT
+            </button>
             <ToastContainer />
         </div>
     );
