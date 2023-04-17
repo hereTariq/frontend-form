@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:3500";
+const baseUrl = "https://google-form-r1wu.onrender.com";
 
 const RegisterAPI = `${baseUrl}/user/register`;
 const LoginAPI = `${baseUrl}/user/login`;
