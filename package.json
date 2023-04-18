@@ -2,6 +2,7 @@
     "name": "react-login-page",
     "version": "0.1.0",
     "private": true,
+    "homepage": "https://github.com/iamalfi/frontend-google-form.git",
     "dependencies": {
         "@heroicons/react": "^1.0.6",
         "react": "^18.2.0",
@@ -14,10 +15,18 @@
         "start": "react-scripts --openssl-legacy-provider start",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "predeploy": "yarn run build",
+        "deploy": "gh-pages -d build"
     },
     "eslintConfig": {
-        "extends": "react-app"
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "devDependencies": {
+        "gh-pages": "^3.2.3"
     },
     "browserslist": {
         "production": [
