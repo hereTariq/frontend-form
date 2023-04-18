@@ -1,10 +1,10 @@
-import React, { useEffect, useReducer, useState } from 'react';
-import { GetFormAPI, CreateResponseFormAPI } from '../../utils/APIRoutes';
-import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useEffect, useState } from "react";
+import { GetFormAPI, CreateResponseFormAPI } from "../../utils/APIRoutes";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import '../../App.css';
+import "../../App.css";
 
 export default function ResponseForm({ formData }) {
     const [elements, setElements] = useState(null);
@@ -12,25 +12,25 @@ export default function ResponseForm({ formData }) {
     const [values, setValues] = useState({});
     const navigate = useNavigate();
     const toastOptions = {
-        position: 'bottom-right',
+        position: "bottom-right",
         autoClose: 5000,
         pauseOnHover: true,
-        theme: 'colored',
+        theme: "colored",
         draggable: true,
     };
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(localStorage.getItem("user"));
         if (!user) {
-            navigate('/login');
+            navigate("/login");
         }
         if (!user.formId) {
-            navigate('/form');
+            navigate("/form");
         }
 
         async function fetchFormData() {
             const response = await fetch(`${GetFormAPI}/${user.formId}`, {
-                method: 'GET',
+                method: "GET",
                 headers: {
                     Authorization: `Bearer ${user.token}`,
                 },
@@ -40,8 +40,8 @@ export default function ResponseForm({ formData }) {
                 setElements(form.form);
             } else {
                 toast.error(form.message, toastOptions);
-                if (form.message === 'Unauthorized') {
-                    navigate('/login');
+                if (form.message === "Unauthorized") {
+                    navigate("/login");
                 }
             }
         }
@@ -58,11 +58,11 @@ export default function ResponseForm({ formData }) {
         let data = [];
         data.push(values);
 
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(localStorage.getItem("user"));
         const response = await fetch(CreateResponseFormAPI, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${user.token}`,
             },
             body: JSON.stringify({
@@ -102,7 +102,7 @@ export default function ResponseForm({ formData }) {
                                 key={field.name}
                                 className="flex justify-between items-center space-y-4"
                             >
-                                {field.question_type === 'short_answer' ? (
+                                {field.question_type === "short_answer" ? (
                                     <div className="block space-y-2 flex flex-col text-sm font-medium text-gray-700 capitalize w-full">
                                         <label htmlFor="">{field.label}</label>
                                         <input
@@ -114,7 +114,7 @@ export default function ResponseForm({ formData }) {
                                             }
                                         />
                                     </div>
-                                ) : field.question_type === 'paragraph' ? (
+                                ) : field.question_type === "paragraph" ? (
                                     <div
                                         key={field.name}
                                         className="block space-y-2 flex flex-col text-sm font-medium text-gray-700 capitalize"
