@@ -35,6 +35,7 @@ export default function ResponseForm({ formData }) {
                     Authorization: `Bearer ${user.token}`,
                 },
             });
+
             const form = await response.json();
             if (form.status === true) {
                 setElements(form.form);

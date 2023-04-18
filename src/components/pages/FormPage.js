@@ -32,7 +32,9 @@ export default function FormPage({ setFormData }) {
 
     // let user;
     useEffect(() => {
-        if (!localStorage.getItem("user")) {
+        const user = JSON.parse(localStorage.getItem("user"));
+        console.log(user);
+        if (!user) {
             navigate("/login");
         }
     });
@@ -81,6 +83,7 @@ export default function FormPage({ setFormData }) {
     const submitForm = async (e) => {
         e.preventDefault();
         const user = JSON.parse(localStorage.getItem("user"));
+        console.log(user);
         if (!user) {
             navigate("/login");
         }
