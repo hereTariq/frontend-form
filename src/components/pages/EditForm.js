@@ -45,6 +45,7 @@ export default function EditForm({ setFormData }) {
                 setTitle(form.form.title);
                 setDescription(form.form.description);
                 setFormContent(form.form.formFields);
+                console.log(form.form);
             }
         };
         fetchForm();
@@ -52,7 +53,9 @@ export default function EditForm({ setFormData }) {
 
     const addQuestion = () => {
         const field = {
-            name: `question_${formContent.length}`,
+            name: `question_${formContent.length}${Math.floor(
+                Math.random() * 9999
+            )}`,
             label: 'Untitled question',
             required: false,
             question_type: 'short_answer', // "paragraph", "multichoice",

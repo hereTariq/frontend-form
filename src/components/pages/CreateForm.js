@@ -41,7 +41,9 @@ export default function CreateForm() {
 
     const addQuestion = () => {
         const field = {
-            name: `question_${formContent.length}`,
+            name: `question_${formContent.length}_${Math.floor(
+                Math.random() * 9999
+            )}`,
             label: 'Untitled question',
             required: false,
             question_type: 'short_answer', // "paragraph", "multichoice",
@@ -116,10 +118,7 @@ export default function CreateForm() {
         const data = await response.json();
         if (data.status === true) {
             navigate(`/response-form/${data.form._id}`);
-            // user.formId = data.form._id;
-            // localStorage.setItem('user', JSON.stringify(user));
-            // toast.success(data.message, toastOptions);
-            // navigate('/response-form');
+            console.log(data);
         } else {
             toast.error(data.message, toastOptions);
         }
@@ -132,7 +131,7 @@ export default function CreateForm() {
                 <div className="flex flex-col px-4 bg-white rounded-md justify-center item-start w-full shadow-sm border-indigo-800 border-t-8 space-y-2 h-24">
                     <input
                         type="text"
-                        className="text-3xl font-semibold"
+                        className="text-3xl font-semibold w-full"
                         placeholder=""
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
@@ -291,7 +290,7 @@ export default function CreateForm() {
                     </button> */}
                     </div>
                     <button
-                        className="bg-indigo-600 px-4 py-2 hover:bg-indigo-700 rounded-md text-white"
+                        className="mb-4 bg-indigo-600 px-4 py-2 hover:bg-indigo-700 rounded-md text-white"
                         type="submit"
                         onClick={(e) => submitForm(e)}
                     >
