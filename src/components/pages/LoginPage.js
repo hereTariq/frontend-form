@@ -20,7 +20,7 @@ export default function LoginPage({ setUser }) {
 
     useEffect(() => {
         if (localStorage.getItem('user')) {
-            navigate('/form');
+            navigate('/forms');
         }
     });
     const submitForm = async (e) => {
@@ -45,7 +45,7 @@ export default function LoginPage({ setUser }) {
                 );
 
                 console.log(data);
-                navigate('/form');
+                navigate('/forms');
             } else {
                 toast.error(data.message, toastOptions);
                 console.log(data);

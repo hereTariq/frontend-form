@@ -1,49 +1,46 @@
-import React, { useEffect, useState } from "react";
-import { GetFormAPI, CreateResponseFormAPI } from "../../utils/APIRoutes";
-import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useEffect, useState } from 'react';
+import { GetFormAPI, CreateResponseFormAPI } from '../../utils/APIRoutes';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import callApi from '../../utils/fetchData';
 
-import "../../App.css";
+import '../../App.css';
+import Navbar from './Navbar';
 
-export default function ResponseForm({ formData }) {
+export default function ResponseForm() {
     const [elements, setElements] = useState(null);
 
     const [values, setValues] = useState({});
     const navigate = useNavigate();
+    const { id } = useParams();
     const toastOptions = {
-        position: "bottom-right",
+        position: 'bottom-right',
         autoClose: 5000,
         pauseOnHover: true,
-        theme: "colored",
+        theme: 'colored',
         draggable: true,
     };
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("user"));
+        const user = JSON.parse(localStorage.getItem('user'));
         if (!user) {
-            navigate("/login");
-        }
-        if (!user.formId) {
-            navigate("/form");
+            navigate('/login');
         }
 
         async function fetchFormData() {
-            const response = await fetch(`${GetFormAPI}/${user.formId}`, {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${user.token}`,
-                },
-            });
-
-            const form = await response.json();
+            const form = await callApi(
+                `${GetFormAPI}/${id}`,
+                'GET',
+                user.token
+            );
             if (form.status === true) {
                 setElements(form.form);
+            } else if (form.message === 'Unauthorized') {
+                toast.error(form.message, toastOptions);
+                navigate('/login');
             } else {
                 toast.error(form.message, toastOptions);
-                if (form.message === "Unauthorized") {
-                    navigate("/login");
-                }
             }
         }
 
@@ -59,11 +56,11 @@ export default function ResponseForm({ formData }) {
         let data = [];
         data.push(values);
 
-        const user = JSON.parse(localStorage.getItem("user"));
+        const user = JSON.parse(localStorage.getItem('user'));
         const response = await fetch(CreateResponseFormAPI, {
-            method: "POST",
+            method: 'POST',
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
                 Authorization: `Bearer ${user.token}`,
             },
             body: JSON.stringify({
@@ -77,21 +74,21 @@ export default function ResponseForm({ formData }) {
             toast.error(responseForm.message, toastOptions);
         } else {
             toast.success(responseForm.message, toastOptions);
-            console.log(responseForm);
+            navigate('/forms');
+            // console.log(responseForm);
         }
 
         // console.log(data);
     }
     return (
         <>
-            <div className="container mx-auto w-1/2">
+            <Navbar />
+            <div className="container mx-auto w-2/3">
                 <div className="flex flex-col px-4 bg-white rounded-md justify-center item-start w-full shadow-sm border-indigo-800 border-t-8 space-y-2 h-24">
                     <h1 className="text-3xl font-semibold">
                         {elements?.title}
                     </h1>
-                    <p className="text-gray-500/80  capitalize">
-                        {elements?.description}
-                    </p>
+                    <p className="text-gray-500/80">{elements?.description}</p>
                 </div>
                 <form
                     onSubmit={(e) => handleSubmit(e)}
@@ -103,19 +100,20 @@ export default function ResponseForm({ formData }) {
                                 key={field.name}
                                 className="flex justify-between items-center space-y-4"
                             >
-                                {field.question_type === "short_answer" ? (
+                                {field.question_type === 'short_answer' ? (
                                     <div className="block space-y-2 flex flex-col text-sm font-medium text-gray-700 capitalize w-full">
                                         <label htmlFor="">{field.label}</label>
                                         <input
                                             className="pl-3 shadow-sm h-10 rounded-md block w-full text-xl"
                                             name={field.name}
                                             type="text"
+                                            required
                                             onChange={(e) =>
                                                 changeHandle(e, field.label)
                                             }
                                         />
                                     </div>
-                                ) : field.question_type === "paragraph" ? (
+                                ) : field.question_type === 'paragraph' ? (
                                     <div
                                         key={field.name}
                                         className="block space-y-2 flex flex-col text-sm font-medium text-gray-700 capitalize"
@@ -123,6 +121,7 @@ export default function ResponseForm({ formData }) {
                                         <label htmlFor="">{field.label}</label>
                                         <textarea
                                             name={field.name}
+                                            required
                                             className="p-1 shadow-sm h-10 rounded-md block w-full"
                                             id=""
                                             rows="10"

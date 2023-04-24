@@ -1,19 +1,21 @@
-import React, { useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-import LandingPage from "./components/pages/LandingPage";
-import LoginPage from "./components/pages/LoginPage";
-import RegisterPage from "./components/pages/RegisterPage";
-import ForgetPasswordPage from "./components/pages/ForgetPasswordPage";
-import FormPage from "./components/pages/FormPage";
-import ResponseForm from "./components/pages/ResponseForm";
+import LandingPage from './components/pages/LandingPage';
+import LoginPage from './components/pages/LoginPage';
+import RegisterPage from './components/pages/RegisterPage';
+import ForgetPasswordPage from './components/pages/ForgetPasswordPage';
+import CreateForm from './components/pages/CreateForm';
+import ResponseForm from './components/pages/ResponseForm';
+import Forms from './components/pages/Forms';
+import EditForm from './components/pages/EditForm';
+import ViewForm from './components/pages/ViewForm';
 
-import "./App.css";
+import './App.css';
 
 export default function App() {
     const [user, setUser] = useState(null);
     const [formData, setFormData] = useState(null);
-    //component, useState,useEffect,props,JSX, fetch
     return (
         <BrowserRouter>
             <Routes>
@@ -25,13 +27,13 @@ export default function App() {
                 <Route path="/" exact element={<LandingPage />} />
 
                 <Route
-                    path="/form"
-                    element={<FormPage setFormData={setFormData} />}
+                    path="/create-form"
+                    element={<CreateForm setFormData={setFormData} />}
                 />
-                <Route
-                    path="/response-form"
-                    element={<ResponseForm formData={formData} />}
-                />
+                <Route path="/forms/:id" element={<ViewForm />} />
+                <Route path="/forms/edit/:id" element={<EditForm />} />
+                <Route path="/forms" element={<Forms />} />
+                <Route path="/response-form/:id" element={<ResponseForm />} />
             </Routes>
         </BrowserRouter>
     );
