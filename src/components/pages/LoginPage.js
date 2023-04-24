@@ -44,11 +44,9 @@ export default function LoginPage({ setUser }) {
                     })
                 );
 
-                console.log(data);
                 navigate('/forms');
             } else {
                 toast.error(data.message, toastOptions);
-                console.log(data);
             }
         }
     };

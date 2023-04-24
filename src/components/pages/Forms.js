@@ -12,7 +12,7 @@ export default function Forms() {
 
     const toastOptions = {
         position: 'bottom-right',
-        autoClose: 5000,
+        autoClose: 3000,
         pauseOnHover: true,
         theme: 'colored',
         draggable: true,
@@ -26,9 +26,7 @@ export default function Forms() {
             const forms = await callAPI(GetFormsAPI, 'GET', user.token);
             if (forms.status === true) {
                 setForms(forms.forms);
-                console.log(forms.forms);
             } else if (forms.statusCode == 404) {
-                console.log(forms);
                 setForms([{ msg: 'No Forms Found, Please create one' }]);
             } else {
                 localStorage.removeItem('user');
@@ -56,11 +54,7 @@ export default function Forms() {
         <>
             <Navbar />
 
-            {forms.length === 0 ? (
-                <h1 className="flex items-center justify-center h-screen font-semibold">
-                    something went wrong, please try again later
-                </h1>
-            ) : forms[0].msg !== undefined ? (
+            {forms[0]?.msg !== undefined ? (
                 <div>
                     <h1 className="flex items-center justify-center h-screen font-bold text-xl">
                         {forms[0].msg}

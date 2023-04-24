@@ -66,7 +66,7 @@ export default function ResponseForm() {
             body: JSON.stringify({
                 answers: data,
                 userId: user.userId,
-                formId: user.formId,
+                formId: id,
             }),
         });
         const responseForm = await response.json();
@@ -75,10 +75,7 @@ export default function ResponseForm() {
         } else {
             toast.success(responseForm.message, toastOptions);
             navigate('/forms');
-            // console.log(responseForm);
         }
-
-        // console.log(data);
     }
     return (
         <>

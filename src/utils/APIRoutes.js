@@ -1,5 +1,5 @@
-// const baseUrl = 'https://form-backend-production-6b36.up.railway.app';
-const baseUrl = 'http://localhost:3500';
+const baseUrl = 'https://form-backend-production-032c.up.railway.app';
+// const baseUrl = 'http://localhost:3500';
 
 const RegisterAPI = `${baseUrl}/user/register`;
 const LoginAPI = `${baseUrl}/user/login`;

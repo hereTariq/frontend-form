@@ -102,7 +102,6 @@ export default function EditForm({ setFormData }) {
         } else {
             alert('There must be at least one question');
         }
-        // console.log(fields.length);
     };
     const submitForm = async (e) => {
         e.preventDefault();
@@ -125,7 +124,6 @@ export default function EditForm({ setFormData }) {
         });
         const data = await response.json();
         if (data.status === true) {
-            console.log(data);
             navigate('/forms');
             toast.success(data.message, toastOptions);
         }

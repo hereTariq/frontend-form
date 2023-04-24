@@ -36,10 +36,8 @@ export default function SignUpPage() {
             });
             const data = await response.json();
             if (data.status === true) {
-                console.log(data);
                 navigate('/login');
             } else {
-                console.log(data);
                 toast.error(data.message, toastOptions);
             }
         }
