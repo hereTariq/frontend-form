@@ -127,7 +127,7 @@ export default function CreateForm() {
         <>
             {' '}
             <Navbar />
-            <div className="container mx-auto                                                                                                                    flex flex-col justify-start items-center px-4 h-screen w-4/5 space-y-4">
+            <div className="container mx-auto flex flex-col justify-start items-center px-4 h-screen sm:w-4/5 space-y-4">
                 <div className="flex flex-col px-4 bg-white rounded-md justify-center item-start w-full shadow-sm border-indigo-800 border-t-8 space-y-2 h-24">
                     <input
                         type="text"
@@ -278,9 +278,9 @@ export default function CreateForm() {
                             </div>
                         );
                     })}
-                    <div className=" absolute space-y-1 top-0 -right-16 flex flex-col justify-between items-center bg-white p-2 rounded-md shadow-md">
+                    <div className=" absolute space-y-1 top-0 -right-6 sm:-right-14 flex flex-col justify-between items-center bg-white p-2 rounded-md shadow-md">
                         <button onClick={() => addQuestion()}>
-                            <PlusCircleIcon className="w-8 h-8 text-gray-400 hover:text-indigo-500" />
+                            <PlusCircleIcon className="w-6 h-6 sm:w-8 sm:h-8 text-gray-400 hover:text-indigo-500" />
                         </button>
                         {/* <button onClick={() => addQuestion()}>
                         <PlusCircleIcon className="w-8 h-8 text-gray-400 hover:text-indigo-500" />

@@ -50,7 +50,7 @@ export default function EditForm({ setFormData }) {
         <>
             {' '}
             <Navbar />
-            <div className="container mx-auto                                                                                                                    flex flex-col justify-start items-center px-4 h-screen w-4/5 space-y-4">
+            <div className="container mx-auto  flex flex-col justify-start items-center px-4 h-screen sm:w-4/5 space-y-4">
                 <div className="flex flex-col px-4 bg-white rounded-md justify-center item-start w-full shadow-sm border-indigo-800 border-t-8 space-y-2 h-24">
                     <input
                         type="text"

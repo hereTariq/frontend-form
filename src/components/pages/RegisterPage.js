@@ -69,7 +69,7 @@ export default function SignUpPage() {
         <>
             <div className="text-center m-5-auto">
                 <h5>Create your personal account</h5>
-                <form onSubmit={(e) => submitForm(e)}>
+                <form className="space-y-4" onSubmit={(e) => submitForm(e)}>
                     <p>
                         <label>Username</label>
                         <br />

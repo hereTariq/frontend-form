@@ -68,7 +68,7 @@ export default function LoginPage({ setUser }) {
         <>
             <div className="text-center m-5-auto">
                 <h2 className="text-3xl font-bold">LOGIN</h2>
-                <form onSubmit={(e) => submitForm(e)}>
+                <form className="space-y-4" onSubmit={(e) => submitForm(e)}>
                     <p>
                         <label>Email address</label>
                         <br />

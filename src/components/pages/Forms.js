@@ -62,12 +62,12 @@ export default function Forms() {
                 </div>
             ) : (
                 <div>
-                    <div className="container mx-auto mt-4 flex flex-col justify-center items-center">
+                    <div className="md:container md:mx-auto mt-4 flex flex-col justify-center items-center">
                         {forms.map((form) => {
                             return (
                                 <div
                                     key={form._id}
-                                    className="shadow-md w-2/3 px-4 py-3 mb-8 rounded-sm space-y-4"
+                                    className="shadow-md  sm:w-2/3 px-4 py-3 mb-8 rounded-sm space-y-4"
                                 >
                                     <h2 className="font-bold text-xl">
                                         {form.title}
