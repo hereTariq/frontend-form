@@ -1,4 +1,4 @@
-const baseUrl = 'https://form-backend-production-032c.up.railway.app';
+const baseUrl = 'https://form-backend-flame.vercel.app';
 // const baseUrl = 'http://localhost:3500';
 
 const RegisterAPI = `${baseUrl}/user/register`;
